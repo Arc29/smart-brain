@@ -8,7 +8,7 @@ class Profile extends React.Component {
         this.state = {}
     }
     componentWillMount() {
-        fetch('https://murmuring-river-81198.herokuapp.com//profile/' + this.props.id)
+        fetch('https://murmuring-river-81198.herokuapp.com/profile/' + this.props.id)
             .then(res => res.json())
             .then(data => {
                 this.setState(data)
@@ -40,7 +40,7 @@ class Profile extends React.Component {
        
     }
     handleClickDelete=()=>{
-         fetch('https://murmuring-river-81198.herokuapp.com//profile/' + this.props.id, { method: 'delete' })
+         fetch('https://murmuring-river-81198.herokuapp.com/profile/' + this.props.id, { method: 'delete' })
             .then(res => res.json())
             .then(data => {
                 window.alert(data)

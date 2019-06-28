@@ -26,7 +26,7 @@ class PassChange extends React.Component  {
         event.preventDefault();
         this.refs.mainForm.reset();
         if(this.state.match){
-        fetch('https://murmuring-river-81198.herokuapp.com//profile/'+this.props.id,{
+        fetch('https://murmuring-river-81198.herokuapp.com/profile/'+this.props.id,{
             method:'post',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({
@@ -48,7 +48,7 @@ class PassChange extends React.Component  {
 
         if(!this.state.oldChecked&&this.state.match){
         
-        fetch('https://murmuring-river-81198.herokuapp.com//signin',{
+        fetch('https://murmuring-river-81198.herokuapp.com/signin',{
             method:'post',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({

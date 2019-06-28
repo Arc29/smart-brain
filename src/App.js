@@ -72,7 +72,7 @@ class App extends Component {
   onButtonClick = () => {
 
     this.setState({ imageURL: this.state.input });
-    fetch('https://murmuring-river-81198.herokuapp.com//imageAPI',{
+    fetch('https://murmuring-river-81198.herokuapp.com/imageAPI',{
       method:'post',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({input:this.state.input}),
@@ -80,7 +80,7 @@ class App extends Component {
       .then(response => {
 
         this.setState({ box: this.calcBoxDim(response) })
-        fetch('https://murmuring-river-81198.herokuapp.com//image',{
+        fetch('https://murmuring-river-81198.herokuapp.com/image',{
           method:'put',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({id:this.state.id}),
@@ -102,7 +102,7 @@ class App extends Component {
     this.setState({ route });
   }
   onUserChange=(id)=>{
-    fetch('https://murmuring-river-81198.herokuapp.com//profile/'+id)
+    fetch('https://murmuring-river-81198.herokuapp.com/profile/'+id)
     .then(res=>res.json())
     .then(data=>{
       this.setState({name:data.name,entries:data.entries,id:id,email:data.email})
