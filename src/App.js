@@ -13,6 +13,7 @@ import Profile from './components/Profile/Profile'
 import PassChange from './components/PassChange/PassChange';
 
 
+
 const particleparams = {
   "particles": {
     "number": {
@@ -115,6 +116,7 @@ class App extends Component {
 
         <Particles className='particle'
           params={particleparams} />
+         
         <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn} />
         {(this.state.route === 'signin')
           ? <SignIn onRouteChange={this.onRouteChange} onUserChange={this.onUserChange} />

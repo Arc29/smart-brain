@@ -1,6 +1,8 @@
 import React from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { trackPromise} from 'react-promise-tracker';
+import {Spinner} from '../Spinner/Spinner'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -8,8 +10,9 @@ class Profile extends React.Component {
         this.state = {}
     }
     componentWillMount() {
+        trackPromise(
         fetch('https://murmuring-river-81198.herokuapp.com/profile/' + this.props.id)
-            .then(res => res.json())
+            .then(res => res.json()))
             .then(data => {
                 this.setState(data)
             })
@@ -40,8 +43,9 @@ class Profile extends React.Component {
        
     }
     handleClickDelete=()=>{
+        trackPromise(
          fetch('https://murmuring-river-81198.herokuapp.com/profile/' + this.props.id, { method: 'delete' })
-            .then(res => res.json())
+            .then(res => res.json()))
             .then(data => {
                 window.alert(data)
                 this.props.onRouteChange('signin')
@@ -53,7 +57,7 @@ class Profile extends React.Component {
         return (
      <div className='center'>
         <article className="mw6 flex flex-column content-center center bg-transparent shadow-5 br3 pa3 pa4-ns mv3 ba b--black-10">
-
+            <Spinner />
             <div className="tc">
 
                 <h1 className="f2">{name}</h1>

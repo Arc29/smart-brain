@@ -1,5 +1,7 @@
 import React from 'react';
 import bcrypt from 'bcryptjs';
+import { trackPromise} from 'react-promise-tracker';
+import {Spinner} from '../Spinner/Spinner'
 
 class PassChange extends React.Component  {
     constructor(props){
@@ -25,7 +27,9 @@ class PassChange extends React.Component  {
     onConfirm=(event)=>{
         event.preventDefault();
         this.refs.mainForm.reset();
+        
         if(this.state.match){
+            trackPromise(
         fetch('https://murmuring-river-81198.herokuapp.com/profile/'+this.props.id,{
             method:'post',
             headers:{'Content-Type':'application/json'},
@@ -33,7 +37,7 @@ class PassChange extends React.Component  {
                 
                 passHash:bcrypt.hashSync(this.state.password, bcrypt.genSaltSync(10))
             })
-        }).then(res=>res.json())
+        }).then(res=>res.json()))
         .then(data=>{
             
             window.alert(data);
@@ -47,7 +51,7 @@ class PassChange extends React.Component  {
         this.refs.mainForm.reset();
 
         if(!this.state.oldChecked&&this.state.match){
-        
+        trackPromise(
         fetch('https://murmuring-river-81198.herokuapp.com/signin',{
             method:'post',
             headers:{'Content-Type':'application/json'},
@@ -55,7 +59,7 @@ class PassChange extends React.Component  {
                 email:this.props.email,
                 pass:this.state.password
             })
-        }).then(res=>res.json())
+        }).then(res=>res.json()))
         .then(data=>{
             
             if(data.message)
@@ -83,6 +87,7 @@ class PassChange extends React.Component  {
     return (
         
         <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 center shadow-5">
+        <Spinner />
         <main className="pa4 black-80">
             <form method='post' onSubmit={f} className="measure" ref='mainForm'>
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">

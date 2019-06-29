@@ -1,6 +1,6 @@
 import React from 'react';
-
-
+import { trackPromise} from 'react-promise-tracker';
+import {Spinner} from '../Spinner/Spinner'
 class SignIn extends React.Component  {
     constructor(props){
         super(props);
@@ -8,7 +8,8 @@ class SignIn extends React.Component  {
             signInEmail:'',
             signInPassword:'',
             emailMatch:false,
-            passMatch:false
+            passMatch:false,
+            
         }
     }
     
@@ -29,6 +30,7 @@ class SignIn extends React.Component  {
     onLogin=(event)=>{
         event.preventDefault();
         if(this.state.emailMatch&&this.state.passMatch){
+            trackPromise(
         fetch('https://murmuring-river-81198.herokuapp.com/signin',{
             method:'post',
             headers:{'Content-Type':'application/json'},
@@ -36,7 +38,7 @@ class SignIn extends React.Component  {
                 email:this.state.signInEmail,
                 pass:this.state.signInPassword
             })
-        }).then(res=>res.json())
+        }).then(res=>res.json()))
         .then(data=>{
             
             if(data.message)
@@ -51,10 +53,14 @@ class SignIn extends React.Component  {
     render(){
         
     return (
+        <div className='' style={{position:'relative'}}>
         
-        <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 center shadow-5">
+        <Spinner  />
+        
+        <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 center shadow-5" style={{zIndex:10}}>
         <main className="pa4 black-80">
             <form onSubmit={this.onLogin} method='post' className="measure ">
+            
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                     <legend className="f1 fw6 ph0 mh0">Sign In</legend>
                     <div className="mt3">
@@ -86,6 +92,7 @@ class SignIn extends React.Component  {
   </form>
 </main>
 </article>
+</div>
             );
     }
           }

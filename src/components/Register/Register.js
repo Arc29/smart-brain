@@ -1,5 +1,7 @@
 import React from 'react';
 import bcrypt from 'bcryptjs';
+import { trackPromise} from 'react-promise-tracker';
+import {Spinner} from '../Spinner/Spinner'
 
 class Register extends React.Component{
     constructor(props){
@@ -16,6 +18,7 @@ class Register extends React.Component{
     onNameChange=(event)=>this.setState({name:event.target.value});
     onRegister=(event)=>{
         event.preventDefault()
+        trackPromise(
         fetch('https://murmuring-river-81198.herokuapp.com/register',{
             method:'post',
             headers:{'Content-Type':'application/json'},
@@ -24,7 +27,7 @@ class Register extends React.Component{
                 passHash:bcrypt.hashSync(this.state.password, bcrypt.genSaltSync(10)),
                 name:this.state.name
             })
-        }).then(res=>res.json())
+        }).then(res=>res.json()))
         .then(data=>{
             if(data.id)
             this.props.onRouteChange('signin');
@@ -38,6 +41,7 @@ class Register extends React.Component{
        
     return (
         <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 center shadow-5">
+        <Spinner  />
         <main className="pa4 black-80">
             <form onSubmit={this.onRegister} method='post' className="measure ">
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
